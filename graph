@@ -1,0 +1,33 @@
+#graph
+#bredth first search
+from collections import *
+def grid(edges):
+    d=dict()
+    for i in range(1,vertices+1):
+        d[i]=list()
+    # initializing the graph (converting edges into an adjacency list)
+    for edge in edges:
+        d[edge[0]].append(edge[1])
+        d[edge[1]].append(edge[0])
+    return d
+def bfs(s,edges,vertices):
+    graph = grid(edges)
+    visited_array=[False] * (vertices+1)
+    queue=deque([])
+    queue.append(s)
+    visited_array[s]=True # marking source node as visited
+    ans=[]
+    while queue:
+        current=queue.popleft()
+        ans.append(current)
+        for v in graph[current]:
+            if visited_array[v] is not True:
+                queue.append(v)
+                visited_array[v]=True
+    return ans
+if __name__ == '__main__':
+    edges = [[1, 2], [1, 3], [2, 4], [2, 5], [3, 5], [4, 5], [4, 6], [5, 6]]
+    vertices = 6
+    a = bfs(1, edges, vertices)
+    print(a)
+        
